@@ -1,0 +1,430 @@
+* {
+	margin: 0px;
+	padding: 0px;
+
+	font-family: 'Mongolian Test', Tahoma, Serif;
+	font-size : 24px;
+
+	writing-mode: tb-lr;
+	writing-mode: vertical-lr;
+
+	-webkit-text-orientation: sideways-right;
+
+	text-justify: inter-ideograph;
+	text-align:justify;
+}
+
+body {
+	background-color: rgb(242, 237, 217);
+}
+
+
+h1 {
+	font-family: 'Mongolian Test', Serif;
+	font-size : 28px;
+}
+
+h2 {
+	font-family: 'Mongolian Test', Serif;
+	text-indent: 40px;
+}
+
+p {
+	text-indent: 20px;
+}
+
+table {
+}
+
+#mainHeader {
+	width:120px;
+	margin: 2px;
+	margin-right:0px;
+	padding: 3px;
+	padding-right:0px;
+	border-radius: 5px; 
+	-webkit-border-radius: 5px;
+}
+
+#mainHeader a {
+	text-decoration: none;
+	text-align : center;
+	padding: 0px;
+	margin: 0px;
+}
+
+#mainHeader a:hover {
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#mainHeader .mongolFont {
+	font-size : 48px;
+	font-family: 'Mongolian Test';
+	color : #0000FF;
+}
+
+#mainSection {
+	margin: 2px;
+	padding-right: 5px;
+	padding: 0px;
+	overflow: auto;
+	border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	background-color:#FFFFFF;
+}
+
+#mainSectionHeader {
+	z-index: 0;
+	padding: 0px;
+	height: 0px;
+	position: absolute;
+	float: left;
+	-webkit-box-align: center;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#mainSectionHeader #international {
+	margin: 0px;
+	padding: 0px;
+	height:0px;
+	width:100%;
+}
+
+#mainSectionHeader #international a {
+	margin: 0px;
+	padding: 5px;
+	color: #0000FF;
+	text-decoration: none;
+}
+
+#mainSectionHeader #international a:hover {
+	margin: 0px;
+	padding: 5px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+#mainSectionContent {
+	z-index: 0;
+	margin : 3px;
+	margin-top : 3px;
+	position: relative;
+	float: left;
+}
+
+#mainSectionContent ul	 {
+	margin: 3px;
+	padding: 3px;
+	text-decoration: none;
+	text-align:right;
+	list-style-type: none;
+}
+
+#mainSectionContent ul li	 {
+	margin: 3px;
+	padding: 3px;
+	text-decoration: none;
+	text-align: left;
+}
+
+#mainSectionContent a {
+	margin: 3px;
+	padding: 3px;
+	color: #0000FF;
+	text-decoration: none;
+	text-align: left;
+}
+
+#mainSectionContent a:hover {
+	color: #0000FF;
+	background-color: rgb(242, 237, 217);
+}
+
+table#tableLayoutWithBorder {
+    border: 1px #E3E3E3 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table#tableLayoutWithBorder th {
+    padding: 2px;
+    border: #E3E3E3 solid;
+    border-width: 0 0 1px 1px;
+    background: #F5F5F5;
+    font-weight: bold;
+    line-height: 120%;
+    text-align: left;
+    vertical-align: middle;
+}
+table#tableLayoutWithBorder td {
+    padding: 2px;
+    border: 1px #E3E3E3 solid;
+    border-width: 0 0 1px 1px;
+}
+
+#mainFooter {
+	// display:none;
+	margin: 0px;
+	padding: 0px;
+	padding-top:10px;
+	width:110px;
+	border-radius: 10px; 
+	-webkit-border-radius: 10px;
+/*	background-color: #00DDDC; */
+}
+
+#mainFooter .mongolHele {
+	margin: 0px;
+	padding: 0px;
+	border-radius: 5px; 
+	color : #000040;
+	font-family: 'Mongolian Writing';
+	vertical-align:top;
+}
+
+#mainFooter a {
+	margin: 0px;
+	padding: 0px;
+	color: #0000FF;
+	text-decoration: none;
+}
+
+#mainFooter a:hover {
+	text-decoration: none;
+	color: #000000;
+}
+
+#nav {
+	height:500px;
+	position:absolute;
+	left:88px;
+	top:0px;
+	clear:both;
+	border:0;
+    z-index: 9999;
+	width:40px;
+	margin: 0;
+	padding: 0;
+	padding-top: 50px;
+	// display: none;
+}
+
+#nav li {
+	z-index: 9999;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	position: relative;
+	list-style: none;
+	width: 30px;
+}
+
+/* main level link */
+#nav a {
+	z-index: 9999;
+	color: #0000FF;
+	text-decoration: none;
+	text-align : center;
+	display: block;
+	padding: 3px;
+	margin: 3px;
+	width: 29px;
+
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+
+	background-color: #FFFFFF;
+}
+
+#nav a:hover {
+	z-index: 9999;
+	color: #FFFFFF;
+	background-color: #0000FF;
+}
+
+/* main level link hover */
+#nav li:hover > a {
+	z-index: 9999;
+	color: #FFFFFF;
+	background-color: #0000FF;
+}
+
+/* dropdown */
+#nav li:hover > ul {
+	z-index: 9999;
+	display: block;
+}
+
+/* level 2 list */
+#nav ul {
+	z-index: 9999;
+	display: none;
+	margin: 0px;
+	padding: 0px;
+	padding-right:4px;
+	position: absolute;
+	left: 38px;
+	top : -10px;
+
+	-moz-border-radius:8px;
+	-webkit-border-radius: 8px 8px 8px 8px;
+	border-radius: 8px 8px 8px 8px; 
+	
+	background-color: rgb(225, 245, 225);
+}
+
+#nav ul li {
+	z-index: 9999;
+	float: none;
+	margin: 3px;
+	padding: 2px;
+	width : 25px;
+	border-radius: 8px; 
+	color : #0000FF;
+}
+
+#nav ul li a {
+	z-index: 9999;
+	margin: 0px;
+	padding: 0px;
+	padding-top:5px;
+	padding-bottom:5px;
+	color : #0000FF;
+	text-align: left;
+	white-space: nowrap;
+	word-wrap: none;
+}
+
+#nav ul li a:hover {
+	z-index: 9999;
+	foreground-color: #FFFFFF;
+	background-color: #0000FF;
+}
+
+/* level 3+ list */
+#nav ul ul {
+	left: 181px;
+	top: 0px;
+}
+
+/* clearfix */
+#nav:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+#iOS {
+	text-align:center;
+	vertical-align:middle;
+	width:330px;
+	height:512px;
+	background-color: rgb(242, 237, 217);
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	padding:10px;
+}
+
+#mongolWriterFrame {
+	background-color: rgb(242, 237, 217);
+	margin:5px;padding:10px 10px;
+	border-radius: 10px;
+}
+
+#mongolWriter {
+	width:550px;
+	height:550px;
+	resize:none;
+	-ms-writing-mode: tb-lr;
+	writing-mode: tb-lr;
+}
+
+#menuList {
+	clear:both;
+	margin: 0px;
+	padding: 0px;
+	height : 100%;
+}
+
+#menuList li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+#menuList a {
+	text-decoration: none;
+	text-align : center;
+	padding: 0px;
+	margin: 0px;
+}
+
+#menuList a:hover {
+	color: #FFFFFF;
+	background-color: #0000FF;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* main level link hover */
+#menuList li:hover > a {
+	color: #FFFFFF;
+	background-color: #0000FF;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* level 2 list */
+#menuList ul {
+	margin: 0px;
+	padding: 0px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:10px;
+	padding-bottom:20px;
+
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	background-color: rgb(242, 237, 217);
+}
+
+#menuList ul li {
+	margin: 0px;
+	padding: 0px;
+}
+
+#menuList ul li a {
+	margin: 0px;
+	padding: 0px;
+	padding: 0px;
+	padding-bottom:5px;
+}
+
+#menuList ul li a:hover {
+	foreground-color: #FFFFFF;
+	background-color: #0000FF;
+}
+
+#menuList table {
+	margin: 0px;
+	padding: 0px;
+	height: 500px;
+}
+
+#menuList tr {
+	margin: 0px;
+	padding: 0px;
+}
+
+#menuList td {
+	margin: 0px;
+	padding: 0px;
+	height: 250px;
+}

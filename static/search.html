@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script src="socket.io.js"></script>
+</head>
+
+<body>
+    <div>
+        <form action="create.html">
+            <button>创建新博客</button> <!-- create new blog -->
+        </form>
+    </div>
+
+    <div>
+        <span id="greeting"></span>
+        [<a href="search.html">用户搜索</a>] <!-- user search -->
+    </div>
+
+    <h3>搜索</h3>
+    <form id="searchForm">
+        <input type="text" id="keyword" name="keyword">
+        <button type="submit">搜索</button>
+    </form>
+
+    <table id="resultTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>标题</th>
+            </tr>
+        </thead>
+        <tbody id="resultBody">
+        </tbody>
+    </table>
+    <textarea id="note" class="zuga-jsime" placeholder="" maxlength="10000"></textarea>
+    <script src="zuga-jsime.47ffe60016b4f3510ce8.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 检查是否已登录并显示问候语
+            var sessionName = 'guest'; // 替换为实际的会话逻辑
+            var greeting = document.getElementById('greeting');
+            if (sessionName !== 'guest') {
+                greeting.innerHTML = sessionName + '你好，<a href="../login/logout.html">登出</a>';
+            } else {
+                greeting.innerHTML = '访客你好。';
+            }
+        });
+
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var keyword = document.getElementById('keyword').value.toLowerCase();
+
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    var result = data.filter(item => item.subject.toLowerCase().includes(keyword) || item.body.toLowerCase().includes(keyword));
+                    displayResults(result);
+                });
+        });
+
+        function displayResults(results) {
+            var resultTable = document.getElementById('resultTable');
+            var resultBody = document.getElementById('resultBody');
+
+            resultBody.innerHTML = '';
+
+            results.forEach(r => {
+                var row = document.createElement('tr');
+                row.innerHTML = `<td><a href='read.html?id=${r.id}'>${r.id}</a></td><td>${r.subject}</td>`;
+                resultBody.appendChild(row);
+            });
+
+            resultTable.style.display = results.length > 0 ? 'table' : 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.ZugaIME && typeof window.ZugaIME.init === 'function') {
+                window.ZugaIME.init();
+            } else {
+                console.error('ZugaIME input method logic is not available.');
+            }
+        });
+
+        document.getElementById('text').style.transform = 'rotate(45deg)';
+    </script>
+</body>
+
+</html>

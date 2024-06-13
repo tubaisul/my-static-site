@@ -1,52 +1,47 @@
 <!DOCTYPE html>
 <html lang="mn">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link href="static/ime-base.css" rel="stylesheet" />
-    <script src="static/socket.io.js"></script>
+    <link href="css/index.css" rel="stylesheet" />
     <style type="text/css">
         .ime-toolbar {
             writing-mode: horizontal-tb;
             -webkit-writing-mode: horizontal-tb;
         }
+
         .input-selector ul {
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        textarea,h1,a{
+        textarea,
+        h1,
+        a {
             font-family: Mongolian Test;
-            font-size : 24px;
-  
+            font-size: 24px;
+
             writing-mode: vertical-lr;
             text-orientation: sideways-right;
             text-justify: inter-ideograph;
-            text-align:justify;
+            text-align: justify;
         }
     </style>
 </head>
+
 <body>
-    <a href='the-gallery-master/index.html'> </a>
-    <textarea id="note" class="zuga-jsime" placeholder="" maxlength="10000"></textarea>
-    <svg width="400" height="200" style="border:1px solid #000000;">
-        <text x="100" y="100" transform="rotate(45 100,100)" font-size="20" fill="#333">
-          This text is rotated 45 degrees
-        </text>
-      </svg>
-    <script src="zuga-jsime.47ffe60016b4f3510ce8.js"></script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.ZugaIME && typeof window.ZugaIME.init === 'function') {
-            window.ZugaIME.init();
-        } else {
-            console.error('ZugaIME input method logic is not available.');
-        }
-    });
-
-    document.getElementById('text').style.transform = 'rotate(45deg)';
-    </script>
+    <table>
+        <tr>
+            <a href='bichig.mn/index.html'></a>
+        </tr>
+        <tr>
+            &
+        </tr>
+        <tr>
+            <a href='pages/code.html'></a>
+        </tr>
+    </table>
 </body>
 </html>
