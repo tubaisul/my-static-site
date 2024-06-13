@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read JSON Data</title>
+</head>
+<body>
+    <h1>Data from JSON</h1>
+    <div id="data-container"></div>
+
+    <script>
+        // Function to fetch and display JSON data
+        async function fetchData() {
+            try {
+                const response = await fetch('data.json'); // Adjust the path if necessary
+                const data = await response.json();
+                displayData(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Function to display JSON data on the page
+        function displayData(data) {
+            const container = document.getElementById('data-container');
+            data.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.innerHTML = `<h2>${item.subject}</h2><p>${item.body}</p>`;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        // Fetch and display data when the page loads
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+</html>
