@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "title": "Book Title 1",
+      "author": "Author 1",
+      "summary": "This is a brief summary of Book Title 1.",
+      "details": {
+        "description": "This is a detailed description of Book Title 1.",
+        "publicationDate": "2023-01-01",
+        "isbn": "123-4567890123",
+        "pages": 350
+      }
+    },
+    {
+      "id": 2,
+      "title": " ",
+      "author": "Author 2",
+      "summary": "This is a brief summary of Book Title 2.",
+      "details": {
+        "description": "This is a detailed description of Book Title 2.",
+        "publicationDate": "2023-02-01",
+        "isbn": "456-7890123456",
+        "pages": 400
+      }
+    },
+    {
+        "id": 3,
+        "title": " ",
+        "author": "",
+        "summary": "  ",
+        "details": {
+          "description": "    ",
+          "publicationDate": "2023-02-01",
+          "isbn": "456-7890123456",
+          "pages": 400
+        }
+      },
+      {
+        "id": 4,
+        "title": "",
+        "author": "",
+        "summary": "  ",
+        "details": {
+          "description": "    ",
+          "publicationDate": "2023-02-01",
+          "isbn": "456-7890123456",
+          "pages": 400
+        }
+      }
+]
+  
