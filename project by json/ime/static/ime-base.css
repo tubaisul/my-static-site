@@ -1,0 +1,116 @@
+@font-face {
+	font-family: 'Mongolian Test';
+	src:local('Mongolian Test'),
+		url('MAM8102.ttf') format('truetype');
+  }
+
+.ime-container {
+  left: 30px;
+  top: 30px;
+  background: #fff;
+  border: 1px solid #efefef;
+  border-radius: 2px;
+  min-height: 180px;
+  display: none;
+  color: #212121;
+  position: absolute;
+  z-index: 99999;
+  font-family: Mongolian Test;
+
+  /* writing-mode: tb-lr; */
+  writing-mode: vertical-lr;
+  text-orientation: sideways-right;
+  text-justify: inter-ideograph;
+  text-align:justify;
+}
+#ime_temp {
+  text-orientation: sideways-right;
+  -webkit-text-orientation: sideways-right;
+}
+.ime-container .input-holder {
+  float: left;
+  height: 24px;
+  line-height: 1;
+  padding: 2px 8px;
+  word-break: keep-all;
+  white-space: nowrap;
+  border-bottom: 1px solid #efefef;
+
+  writing-mode: horizontal-tb;
+  -webkit-writing-mode: horizontal-tb;
+  -ms-writing-mode: lr-tb;
+  text-orientation: upright;
+  -webkit-text-orientation: upright;
+}
+.input-holder #input-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: #EB4F04;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.input-selector {
+  border-top: 1px solid #efefef;
+  margin-top: 23px;
+}
+.input-selector ul {
+  min-height: 154px;
+}
+.input-selector li {
+  width: 26px;
+  line-height: 26px;
+  padding: 4px 2px;
+  /*border-right: 1px solid #efefef;*/
+  cursor: pointer;
+}
+.input-selector li i {
+  color: #8c8c8c;
+}
+.input-selector li.ime-selected, .input-selector li.ime-selected i {
+  color: #0297ff;
+}
+
+.ime-toolbar {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  width: 30px;
+  height: 84px;
+  background: #efefef;
+  border: #cecece 1px solid;
+  border-radius: 2px;
+  z-index:99999;
+  display: none;
+  overflow: hidden;
+  color: #5a5a5a;
+  fill: #5a5a5a;
+}
+.ime-toolbar span {
+  width: 28px;
+  height: 28px;
+  display: block;
+  border-bottom: 1px solid #cecece;
+  cursor: pointer;
+  text-align: center;
+  line-height: 24px;
+}
+.ime-toolbar .icon-en:before {
+  content: 'en';
+}
+.ime-toolbar .icon-mn:before {
+  content: 'mn';
+}
+.ime-toolbar.ime-toolbar-hide #ime-switch {
+  display: none;
+}
+.ime-toolbar.ime-toolbar-hide {
+  height: 56px;
+}
+.ime-toolbar.ime-toolbar-hide .icon-close .icon {
+  transform: rotate(180deg);
+}
+.icon.drag {
+  cursor: move;
+  padding: 2px;
+}

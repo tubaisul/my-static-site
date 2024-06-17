@@ -13,8 +13,8 @@
     },
     {
       "id": 2,
-      "title": " ",
-      "author": "Author 2",
+      "title": "Book Title 2",
+      "author": "Author 1",
       "summary": "This is a brief summary of Book Title 2.",
       "details": {
         "description": "This is a detailed description of Book Title 2.",
@@ -25,8 +25,8 @@
     },
     {
         "id": 3,
-        "title": " ",
-        "author": "",
+        "title": "Book Title 3",
+        "author": "Author 2",
         "summary": "  ",
         "details": {
           "description": "    ",
@@ -38,7 +38,7 @@
       {
         "id": 4,
         "title": "",
-        "author": "",
+        "author": "Author 1",
         "summary": "  ",
         "details": {
           "description": "    ",

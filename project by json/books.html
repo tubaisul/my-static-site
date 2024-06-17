@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <style>
+        .details {
+            margin-top: 10px;
+        }
+
+        @font-face {
+            font-family: 'Mongolian Test';
+            src: local('Mongolian Test'),
+                url('MAM8102.ttf') format('truetype');
+        }
+
+        .book {
+            font-family: Mongolian Test;
+            writing-mode: vertical-lr;
+            text-orientation: sideways-right;
+            text-justify: inter-ideograph;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Book Details</h1><br><a href="index.html">homepage</a>
+    <br>
+    <div id="book-container"></div>
+
+    <script>
+        // Function to fetch and display book data
+        async function fetchBookDetails() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const bookTitle = urlParams.get('title');
+
+                const response = await fetch('books.json'); // Adjust the path if necessary
+                const books = await response.json();
+
+                const book = books.find(b => b.title === bookTitle);
+                displayBookDetails(book);
+            } catch (error) {
+                console.error('Error fetching book details:', error);
+            }
+        }
+
+        // Function to display book details
+        function displayBookDetails(book) {
+            const container = document.getElementById('book-container');
+
+            if (book) {
+                const bookDiv = document.createElement('div');
+                bookDiv.classList.add('book');
+                bookDiv.innerHTML = `
+                    <h2>${book.title}</h2>
+                    <p><strong>Author:</strong> <a href="author.html?name=${encodeURIComponent(book.author)}">${book.author}</a></p>
+                    <p><strong>Description:</strong> ${book.details.description}</p>
+                    <p><strong>Publication Date:</strong> ${book.details.publicationDate}</p>
+                    <p><strong>ISBN:</strong> ${book.details.isbn}</p>
+                    <p><strong>Pages:</strong> ${book.details.pages}</p>
+                `;
+                container.appendChild(bookDiv);
+            } else {
+                container.innerHTML = '<p>Book details not found.</p>';
+            }
+        }
+
+        // Fetch and display book details when the page loads
+        document.addEventListener('DOMContentLoaded', fetchBookDetails);
+    </script>
+</body>
+
+</html>

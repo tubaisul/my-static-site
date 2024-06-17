@@ -1,0 +1,29 @@
+[
+    {
+      "id": 1,
+      "name": "Author 1",
+      "summary": "This is a brief summary of Author 1.",
+      "details": {
+        "description": "This is a detailed description of Author 1.",
+        "publicationDate": "2023-01-01"
+      },
+      "books": [
+        "Book Title 1",
+        "Book Title 2",
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Author 2",
+      "summary": "This is a brief summary of Author 2.",
+      "details": {
+        "description": "This is a detailed description of Author 2.",
+        "publicationDate": "2023-02-01"
+      },
+      "books": [
+        "Book Title 3"
+      ]
+    }
+  ]
+  

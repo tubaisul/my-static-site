@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authors</title>
+    <style>
+        .details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        @font-face {
+            font-family: 'Mongolian Test';
+            src: local('Mongolian Test'),
+                url('MAM8102.ttf') format('truetype');
+        }
+
+        .author {
+            font-family: Mongolian Test;
+            writing-mode: vertical-lr;
+            text-orientation: sideways-right;
+            text-justify: inter-ideograph;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Author Details</h1><a href="index.html">homepage</a>
+    <div id="author-container"></div>
+
+    <script>
+        let authorsData = [];
+        let booksData = [];
+
+        // Function to fetch authors and books data
+        async function fetchAuthorsAndBooks() {
+            try {
+                const authorsResponse = await fetch('author.json'); // Adjust the path if necessary
+                authorsData = await authorsResponse.json();
+
+                const booksResponse = await fetch('books.json'); // Adjust the path if necessary
+                booksData = await booksResponse.json();
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const authorName = urlParams.get('name');
+                displayAuthorDetails(authorName);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Function to display author details and related books
+        function displayAuthorDetails(authorName) {
+            const author = authorsData.find(a => a.name === authorName);
+            const container = document.getElementById('author-container');
+
+            if (author) {
+                const authorDiv = document.createElement('div');
+                authorDiv.classList.add('author');
+                authorDiv.innerHTML = `
+                    <h2>${author.name}</h2>
+                    <p>${author.summary}</p>
+                    <div class="details">
+                        <p><strong>Description:</strong> ${author.details.description}</p>
+                        <p><strong>Publication Date:</strong> ${author.details.publicationDate}</p>
+                    </div>
+                    <h3>Books by ${author.name}</h3>
+                    <div id="books-by-author"></div>
+                `;
+                container.appendChild(authorDiv);
+
+                displayBooksByAuthor(author.books);
+            } else {
+                container.innerHTML = '<p>Author details not found.</p>';
+            }
+        }
+
+        // Function to display books by a specific author
+        function displayBooksByAuthor(bookTitles) {
+            const booksContainer = document.getElementById('books-by-author');
+            booksContainer.innerHTML = ''; // Clear previous content
+
+            const books = booksData.filter(book => bookTitles.includes(book.title));
+
+            books.forEach(book => {
+                const bookDiv = document.createElement('div');
+                bookDiv.classList.add('book');
+                bookDiv.innerHTML = `
+                    <h3><a href="books.html?title=${encodeURIComponent(book.title)}">${book.title}</a></h3>
+                    <p>${book.summary}</p>
+                `;
+                booksContainer.appendChild(bookDiv);
+            });
+        }
+
+        // Fetch and display authors and books when the page loads
+        document.addEventListener('DOMContentLoaded', fetchAuthorsAndBooks);
+    </script>
+</body>
+
+</html>
