@@ -12,8 +12,7 @@
 
         @font-face {
             font-family: 'Mongolian Test';
-            src: local('Mongolian Test'),
-                url('MAM8102.ttf') format('truetype');
+            src: local('Mongolian Test'), url('MAM8102.ttf') format('truetype');
         }
 
         .book {
@@ -28,7 +27,7 @@
 </head>
 
 <body>
-    <h1>Book Details</h1><br><a href="index.html">homepage</a>
+    <h1>Book Details</h1><br><a href="../index.html">homepage</a>
     <br>
     <div id="book-container"></div>
 
@@ -39,7 +38,7 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const bookTitle = urlParams.get('title');
 
-                const response = await fetch('books.json'); // Adjust the path if necessary
+                const response = await fetch('../json/books.json'); // Updated path
                 const books = await response.json();
 
                 const book = books.find(b => b.title === bookTitle);

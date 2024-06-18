@@ -5,119 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link href="ime/static/ime-base.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
     <script src="ime/static/socket.io.js"></script>
-    <style>
-        .result {
-            margin-top: 10px;
-        }
-
-        @font-face {
-            font-family: 'Mongolian Test';
-            src: local('Mongolian Test'), url('MAM8102.ttf') format('truetype');
-        }
-
-        .result {
-            font-family: Mongolian Test;
-            writing-mode: vertical-lr;
-            text-orientation: sideways-right;
-            text-justify: inter-ideograph;
-            text-align: justify;
-            margin-bottom: 20px;
-        }
-
-        .ime-toolbar {
-            writing-mode: horizontal-tb;
-            -webkit-writing-mode: horizontal-tb;
-        }
-
-        .input-selector ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .zuga-jsime {
-            font-family: Mongolian Test;
-            font-size: 24px;
-            writing-mode: tb-lr;
-            writing-mode: vertical-lr;
-            text-orientation: sideways-right;
-            text-justify: inter-ideograph;
-            text-align: justify;
-        }
-    </style>
 </head>
 <body>
-    <h1>Search Books and Authors</h1>
-    <input type="text" id="search-box" class="zuga-jsime" placeholder="Search for books or authors" oninput="search()">
-    <div id="results-container"></div>
+    <div class="search-container">
+        <h1>Search Books and Authors</h1>
+        <input type="text" id="search-box" class="zuga-jsime" placeholder="Search for books or authors">
+        <button onclick="search()">Search</button>
+    </div>
+    <div class="results-container" id="results-container"></div>
 
-    <script src="zuga-jsime.47ffe60016b4f3510ce8.js"></script>
-    <script>
-        let booksData = [];
-        let authorsData = [];
-
-        // Function to fetch books and authors data
-        async function fetchBooksAndAuthors() {
-            try {
-                const booksResponse = await fetch('books.json'); // Adjust the path if necessary
-                booksData = await booksResponse.json();
-
-                const authorsResponse = await fetch('author.json'); // Adjust the path if necessary
-                authorsData = await authorsResponse.json();
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        // Function to search for books and authors
-        function search() {
-            const query = document.getElementById('search-box').value.toLowerCase();
-            const resultsContainer = document.getElementById('results-container');
-            resultsContainer.innerHTML = ''; // Clear previous results
-
-            // Search books
-            const bookResults = booksData.filter(book => book.title.toLowerCase().includes(query));
-            bookResults.forEach(book => {
-                const bookDiv = document.createElement('div');
-                bookDiv.classList.add('result');
-                bookDiv.innerHTML = `
-                    <h2><a href="books.html?title=${encodeURIComponent(book.title)}">${book.title}</a></h2>
-                    <p>Author: <a href="author.html?name=${encodeURIComponent(book.author)}">${book.author}</a></p>
-                `;
-                resultsContainer.appendChild(bookDiv);
-            });
-
-            // Search authors
-            const authorResults = authorsData.filter(author => author.name.toLowerCase().includes(query));
-            authorResults.forEach(author => {
-                const authorDiv = document.createElement('div');
-                authorDiv.classList.add('result');
-                authorDiv.innerHTML = `
-                    <h2><a href="author.html?name=${encodeURIComponent(author.name)}">${author.name}</a></h2>
-                    <p>${author.summary}</p>
-                `;
-                resultsContainer.appendChild(authorDiv);
-            });
-        }
-
-        // Fetch and display books and authors when the page loads
-        document.addEventListener('DOMContentLoaded', fetchBooksAndAuthors);
-
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('DOM fully loaded and parsed.');
-            if (window.ZugaIME) {
-                console.log('ZugaIME object is available.');
-                if (typeof window.ZugaIME.init === 'function') {
-                    console.log('ZugaIME init function is available.');
-                    window.ZugaIME.init();
-                } else {
-                    console.error('ZugaIME init function is not available.');
-                }
-            } else {
-                console.error('ZugaIME object is not available.');
-            }
-        });
-    </script>
+    <script src="js/zuga-jsime.47ffe60016b4f3510ce8.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -13,8 +13,7 @@
 
         @font-face {
             font-family: 'Mongolian Test';
-            src: local('Mongolian Test'),
-                url('MAM8102.ttf') format('truetype');
+            src: local('Mongolian Test'), url('MAM8102.ttf') format('truetype');
         }
 
         .author {
@@ -29,7 +28,7 @@
 </head>
 
 <body>
-    <h1>Author Details</h1><a href="index.html">homepage</a>
+    <h1>Author Details</h1><a href="../index.html">homepage</a>
     <div id="author-container"></div>
 
     <script>
@@ -39,10 +38,10 @@
         // Function to fetch authors and books data
         async function fetchAuthorsAndBooks() {
             try {
-                const authorsResponse = await fetch('author.json'); // Adjust the path if necessary
+                const authorsResponse = await fetch('../json/author.json'); // Updated path
                 authorsData = await authorsResponse.json();
 
-                const booksResponse = await fetch('books.json'); // Adjust the path if necessary
+                const booksResponse = await fetch('../json/books.json'); // Updated path
                 booksData = await booksResponse.json();
 
                 const urlParams = new URLSearchParams(window.location.search);
