@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'Mongolian Test';
+	src:local('Mongolian Test'),
+		url('MAM8102.ttf') format('truetype');
+}
+
+body
+{
+	margin: 0px;
+	padding: 0px;
+
+	font-family: Mongolian Test;
+	font-size : 24px;
+
+	writing-mode: tb-lr;
+	writing-mode: vertical-lr;
+
+	-webkit-text-orientation: sideways-right;
+
+	text-justify: inter-ideograph;
+	text-align:justify;
+}
+

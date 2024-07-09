@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mongolian subtitle video player</title>
+    <link href="001.css" type="text/css" rel="stylesheet" media="all">
+    <style>
+        #video-player {
+            max-width: 480px;
+            max-height: 640px;
+            height: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subtitle-overlay {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            font-family: "Mongolian Baiti", Arial, sans-serif;
+            font-size: 24px;
+            text-align: center;
+            padding-top: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            animation-name: danmu-animation;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            white-space: nowrap;
+            font-family: "Mongolian Baiti", Arial, sans-serif;
+            font-size: 24px;
+        }
+
+        .vertical-text span {
+            display: inline-block;
+            transform: rotate(180deg);
+            white-space: nowrap;
+        }
+
+        #play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #play-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        #play-button::before {
+            content: "";
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #333;
+        }
+
+        #danmu-input {
+            display: block;
+            margin-top: 10px;
+        }
+
+        #send-button {
+            display: block;
+            margin-top: 10px;
+        }
+
+        #color-select {
+            display: block;
+            margin-top: 10px;
+        }
+
+        #font-size-select {
+            display: block;
+            margin-top: 10px;
+        }
+
+        #position-select {
+            display: block;
+            margin-top: 10px;
+        }
+
+        @keyframes danmu-animation {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="video-player">
+        <video id="video" controls>
+            <source src="video/001.mp4" type="video/mp4">
+        </video>
+        <div class="subtitle-overlay left"></div>
+        <div class="subtitle-overlay middle"></div>
+        <div class="subtitle-overlay right"></div>
+        <div id="play-button"></div>
+    </div>
+
+    <input type="text" id="danmu-input" placeholder="输入弹幕">
+    <button id="send-button"> ᠢᠯᠡᠭᠡᠬᠦ</button>
+
+    <label for="color-select"> ᠦᠡᠭᠭᠡ</label>
+    <select id="color-select">
+        <option value="white"> ᠴᠠᠭᠠᠨ</option>
+        <option value="red"> ᠤᠯᠠᠭᠠᠨ</option>
+        <option value="green"> ᠨᠤᠭᠤᠭᠠᠨ</option>
+        <option value="blue"> ᠬᠦᠬᠡ</option>
+    </select>
+
+    <label for="font-size-select">字体大小：</label>
+    <select id="font-size-select">
+        <option value="16">16px</option>
+        <option value="20">20px</option>
+        <option value="24">24px</option>
+        <option value="28">28px</option>
+    </select>
+
+    <label for="position-select">显示位置：</label>
+    <select id="position-select">
+        <option value="left">左侧</option>
+        <option value="middle">中间</option>
+        <option value="right">右侧</option>
+    </select>
+
+    <script>
+        var video = document.getElementById("video");
+        var subtitleOverlays = {
+            left: document.querySelector(".subtitle-overlay.left"),
+            middle: document.querySelector(".subtitle-overlay.middle"),
+            right: document.querySelector(".subtitle-overlay.right")
+        };
+        var danmuInput = document.getElementById("danmu-input");
+        var sendButton = document.getElementById("send-button");
+        var colorSelect = document.getElementById("color-select");
+        var fontSizeSelect = document.getElementById("font-size-select");
+        var positionSelect = document.getElementById("position-select");
+
+        var subtitles = [];
+
+        sendButton.addEventListener("click", function() {
+            var danmuText = danmuInput.value;
+            if (danmuText.trim() === "") {
+                return;
+            }
+
+            var newSubtitle = {
+                startTime: video.currentTime,
+                endTime: video.currentTime + 10,
+                text: danmuText,
+                color: colorSelect.value,
+                fontSize: fontSizeSelect.value,
+                position: positionSelect.value
+            };
+
+            subtitles.push(newSubtitle);
+            danmuInput.value = "";
+
+            // 创建新的弹幕元素
+            var subtitleElement = document.createElement("div");
+            subtitleElement.innerText = newSubtitle.text;
+            subtitleElement.style.color = newSubtitle.color;
+            subtitleElement.style.fontSize = newSubtitle.fontSize + "px";
+            subtitleElement.classList.add("subtitle-overlay", newSubtitle.position);
+
+            // 将弹幕元素添加到相应的显示位置
+            subtitleOverlays[newSubtitle.position].appendChild(subtitleElement);
+
+            // 一段时间后自动移除弹幕
+            setTimeout(function() {
+                subtitleOverlays[newSubtitle.position].removeChild(subtitleElement);
+            }, 5000); // 5秒后移除弹幕
+        });
+
+        var playButton = document.getElementById("play-button");
+
+        playButton.addEventListener("click", function() {
+            if (video.paused) {
+                video.play();
+                playButton.style.display = "none";
+            }
+        });
+
+        video.addEventListener("play", function() {
+            playButton.style.display = "none";
+        });
+
+        video.addEventListener("pause", function() {
+            playButton.style.display = "block";
+        });
+    </script>
+</body>
+</html>

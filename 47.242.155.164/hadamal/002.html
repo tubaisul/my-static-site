@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mongolian subtitle video player</title>
+    <style>
+        #video-player {
+            max-width: 480px;
+            max-height: 640px;
+            height: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #subtitle-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            font-family: "Mongolian Baiti", Arial, sans-serif;
+            font-size: 24px;
+            text-align: center;
+            padding-top: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-lr;
+            white-space: nowrap;
+            font-family: "Mongolian Baiti", Arial, sans-serif;
+            font-size: 24px;
+        }
+    
+        .vertical-text span {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        #play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #play-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        #play-button::before {
+            content: "";
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #333;
+        }
+
+        #subtitle-input {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #start-time-input,
+        #end-time-input {
+            width: 60px;
+        }
+
+        #submit-button {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #subtitle-list {
+            margin-bottom: 10px;
+        }
+
+        #subtitle-list li {
+            margin-bottom: 5px;
+        }
+
+        .edit-subtitle-button,
+        .delete-subtitle-button {
+            margin-left: 10px;
+        }
+
+        #import-video-input {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-player">
+        <video id="video" controls>
+        </video>
+        <div id="subtitle-overlay" class="vertical-text"></div>
+        <div id="play-button"></div>
+        <input type="text" id="subtitle-input" placeholder="输入字幕">
+        <div>
+            <label for="start-time-input">开始时间：</label>
+            <input type="number" id="start-time-input" min="0" step="1" placeholder="秒">
+        </div>
+        <div>
+            <label for="end-time-input">结束时间：</label>
+            <input type="number" id="end-time-input" min="0" step="1" placeholder="秒">
+        </div>
+        <button id="submit-button">确定</button>
+        <ul id="subtitle-list"></ul>
+        <input type="file" id="import-video-input">
+        <a id="download-button" href="" download>Download</a>
+    </div>
+
+    <script>
+        var video = document.getElementById("video");
+        var subtitleOverlay = document.getElementById("subtitle-overlay");
+        var subtitleInput = document.getElementById("subtitle-input");
+        var startTimeInput = document.getElementById("start-time-input");
+        var endTimeInput = document.getElementById("end-time-input");
+        var submitButton = document.getElementById("submit-button");
+        var subtitleList = document.getElementById("subtitle-list");
+        var importVideoInput = document.getElementById("import-video-input");
+
+        var subtitles = [];
+
+        video.addEventListener("timeupdate", function() {
+            var currentTime = video.currentTime;
+            var currentSubtitle = findSubtitle(currentTime);
+
+            if (currentSubtitle) {
+                subtitleOverlay.innerHTML = currentSubtitle.text;
+                subtitleOverlay.style.display = "block";
+            } else {
+                subtitleOverlay.style.display = "none";
+            }
+        });
+
+        function findSubtitle(time) {
+            for (var i = 0; i < subtitles.length; i++) {
+                var subtitle = subtitles[i];
+                if (time >= subtitle.startTime && time < subtitle.endTime) {
+                    return subtitle;
+                }
+            }
+            return null;
+        }
+
+        function displaySubtitles() {
+            subtitleList.innerHTML = "";
+            for (var i = 0; i < subtitles.length; i++) {
+                var subtitle = subtitles[i];
+                var subtitleItem = document.createElement("li");
+                subtitleItem.textContent = "字幕：" + subtitle.text + "，开始时间：" + subtitle.startTime + "秒，结束时间：" + subtitle.endTime + "秒";
+                var editButton = document.createElement("button");
+                editButton.textContent = "编辑";
+                editButton.className = "edit-subtitle-button";
+                editButton.dataset.subtitleIndex = i;
+                editButton.addEventListener("click", editSubtitle);
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "删除";
+                deleteButton.className = "delete-subtitle-button";
+                deleteButton.dataset.subtitleIndex = i;
+                deleteButton.addEventListener("click", deleteSubtitle);
+                subtitleItem.appendChild(editButton);
+                subtitleItem.appendChild(deleteButton);
+                subtitleList.appendChild(subtitleItem);
+            }
+        }
+
+        function editSubtitle(event) {
+            var subtitleIndex = parseInt(event.target.dataset.subtitleIndex);
+            var subtitle = subtitles[subtitleIndex];
+            subtitleInput.value = subtitle.text;
+            startTimeInput.value = subtitle.startTime;
+            endTimeInput.value = subtitle.endTime;
+            submitButton.textContent = "更新";
+            submitButton.dataset.subtitleIndex = subtitleIndex;
+        }
+
+        function deleteSubtitle(event) {
+            var subtitleIndex = parseInt(event.target.dataset.subtitleIndex);
+            subtitles.splice(subtitleIndex, 1);
+            displaySubtitles();
+        }
+
+        submitButton.addEventListener("click", function() {
+            var inputSubtitle = subtitleInput.value;
+            var startTime = parseInt(startTimeInput.value);
+            var endTime = parseInt(endTimeInput.value);
+            var subtitleIndex = parseInt(submitButton.dataset.subtitleIndex);
+
+            if (isNaN(subtitleIndex)) {
+                subtitles.push({ startTime: startTime, endTime: endTime, text: inputSubtitle });
+            } else {
+                var existingSubtitle = subtitles[subtitleIndex];
+                existingSubtitle.startTime = startTime;
+                existingSubtitle.endTime = endTime;
+                existingSubtitle.text = inputSubtitle;
+                submitButton.textContent = "确定";
+                submitButton.dataset.subtitleIndex = "";
+            }
+
+            subtitleOverlay.innerHTML = inputSubtitle;
+            subtitleOverlay.style.display = "block";
+
+            subtitleInput.value = "";
+            startTimeInput.value = "";
+            endTimeInput.value = "";
+
+            displaySubtitles();
+        });
+
+        var playButton = document.getElementById("play-button");
+
+        playButton.addEventListener("click", function() {
+            if (video.paused) {
+                video.play();
+                playButton.style.display = "none";
+            }
+        });
+
+        video.addEventListener("play", function() {
+            playButton.style.display = "none";
+        });
+
+        video.addEventListener("pause", function() {
+            playButton.style.display = "block";
+        });
+
+        importVideoInput.addEventListener("change", function(event) {
+            var file = event.target.files[0];
+            var videoURL = URL.createObjectURL(file);
+            video.src = videoURL;
+        });
+
+        var downloadButton = document.getElementById("download-button");
+        downloadButton.addEventListener("click", function() {
+            var videoSrc = document.getElementById("video").src;
+            var filename = videoSrc.split("/").pop();
+            downloadButton.href = videoSrc;
+            downloadButton.setAttribute("download", filename);
+        });
+    </script>
+</body>
+</html>
