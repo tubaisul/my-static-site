@@ -40,11 +40,6 @@ function renderChapter(data) {
     `;
 
     contentDiv.appendChild(sectionDiv);
-
-    // 检查当前小节是否需要展示 Jupyter Notebook
-    if (section.include_notebook) {
-      renderJupyterLite(section.notebook, jupyterLiteDiv);
-    }
   });
 }
 
@@ -58,30 +53,5 @@ function renderJupyterLite(notebookData, jupyterLiteDiv) {
         content: generateNotebookContent(notebookData.code) // 根据传入代码生成笔记本内容
       }
     ]
-  });
-
-  // 将生成的笔记本内容渲染到 JupyterLite 容器中
-  liteApp.then((app) => {
-    const retroLab = app.retroLab;
-    retroLab.commands.execute("docmanager:open", {
-      path: "notebook.ipynb",
-      factory: "Notebook"
-    });
-  });
-}
-
-// 生成 Notebook 文件的内容
-function generateNotebookContent(codeArray) {
-  return JSON.stringify({
-    cells: codeArray.map((code) => ({
-      cell_type: "code",
-      execution_count: null,
-      metadata: {},
-      outputs: [],
-      source: code
-    })),
-    metadata: {},
-    nbformat: 4,
-    nbformat_minor: 5
   });
 }
