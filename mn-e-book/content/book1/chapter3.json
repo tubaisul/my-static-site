@@ -1,0 +1,13 @@
+{
+    "title": "第3章: 交互内容",
+    "layout": "layout3",
+    "interactiveElements": [
+      {
+        "type": "quiz",
+        "question": "以下哪个选项是正确的？",
+        "options": ["选项A", "选项B", "选项C"],
+        "correctOption": "选项B"
+      }
+    ]
+  }
+  
